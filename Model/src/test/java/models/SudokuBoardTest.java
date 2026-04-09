@@ -87,6 +87,21 @@ public class SudokuBoardTest {
         assertFalse(sudokuBoard.isValidSudoku());
     }
 
+	@ParameterizedTest
+	@MethodSource("provideInitiallyCorrectBoards")
+	void testCheckBoardFilled(int[][] initialBoard) {
+		SudokuBoard sudokuBoard = new SudokuBoard(new BacktrackingSudokuSolver());
+
+		for (int y = 0; y < initialBoard.length; y++) {
+			for (int x = 0; x < initialBoard[y].length; x++) {
+				sudokuBoard.setField(x, y, initialBoard[y][x]);
+			}
+		}
+
+		assertTrue(sudokuBoard.checkEndGame());
+	}
+
+
     // Method to provide the test data (initial correct boards)
     private static int[][][] provideInitiallyCorrectBoards() {
         return new int[][][] {
